@@ -16,6 +16,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 5
+#endif
+
 size_t	ft_strlen( char *s);
 char	*ft_strchr(char *s, int c);
 char	*ft_substr(char  *s, unsigned int start, size_t len);

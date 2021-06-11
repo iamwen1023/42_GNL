@@ -17,16 +17,15 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-
 #include <stdio.h>
-
-#define BUFFER_SIZE 5
 
 size_t     ft_strlen_total(char *a)
 {       
         int     length;
         
         length = 0;
+        if (!a)
+            return (0);
         while (*a != '\0' && *a !='\n')
         {       
                 length++;
@@ -59,7 +58,7 @@ char    *ft_strjoin(char *s1, char *s2)
         j++;
     }
     arr[i + j] = '\0';
-    //free(s1);
+    free(s1);
     return (arr);
 }
 
@@ -87,60 +86,53 @@ int get_next_line(int fd, char **line)
     char        *arr = 0;
     int         ret;
 
-    if (fd <= 0 || line == 0)
+    if (fd < 0 || line == 0)
         return (-1);
     if (buffer[0])
         arr = ft_substr(buffer, 0, ft_strlen_total(buffer) + 1);
-    printf("arr: %s\n", arr);
     while (ft_strchr(arr, '\n') == 0)
     {
         ret = read(fd, buffer, BUFFER_SIZE);
         if (ret < 0)
             return (-1);
+        buffer[ret] = '\0'; 
         if (ret == 0)
-            return (0);
-        buffer[ret] = '\0';
+            break;
         if (!arr)
             arr = ft_substr(buffer, 0, (size_t)ret);
         else
             arr = ft_strjoin(arr, buffer);
-        printf("arr in the loop: %s\n", arr);
     }
-    printf("Len of total: %zu\n", ft_strlen_total(arr));
     *line = ft_substr(arr, 0, ft_strlen_total(arr));
-    printf("line: %s\n", *line);
     new_buffer(buffer);
     free(arr);
+    if (!line[0])
+        *line = ft_substr("\0", 0, 1);
+    if (ret == 0)
+        return (0);
     return (1);
 }
 
-int main()
-{
-    int     fd;
-	char	**line;
-	int     i;
+// int main()
+// {
+//     int     fd;
+// 	char	*line;
+// 	int     i;
 
-	fd = open("try", O_RDONLY);
+// 	fd = open("try", O_RDONLY);
 
-    // while (get_next_line(fd, line) > 0)
-	// {
-	// 	printf("line %s\n", line[0]);
-	// }
-   
-
-	 i = get_next_line(fd, line);
-     printf("line %s\n", line[0]);
-    //  i = get_next_line(fd, line);
-    //  //printf("22line %s\n", line[0]);
-    //  i = get_next_line(fd, line);
-    //  //printf("line %s\n", line[0]);
-    //  i = get_next_line(fd, line);
-     //printf("line %s\n", line[0]);
-    //  i = get_next_line(fd, line);
-    //  printf("line %s\n", line[0]);
-    //  i = get_next_line(fd, line);
-     //printf("line %s\n", line[0]);
-	//i = get_next_line(fd, line);
-	close(fd);
-    return 0;
-}
+//     while ((i = get_next_line(fd, &line)) > 0)
+// 	{
+// 	    printf("\e[33mline READ:\e[0m\n|%s|\n", line);
+//         free(line);
+// 	}
+// 	if (i == -1)
+//         printf("\e[31mError encountered\e[0m\n");
+//     else if (!i)
+//         printf("\e[32mEOF reached\e[0m\n|%s|\n", line);
+//     else
+//         printf("Unexpected return of get_next_line\ni == %d\n", i);
+// 	close(fd);
+//    // system("leaks a.out");
+//     return (0);
+// }
