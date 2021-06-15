@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlo <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: wlo <wlo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:51:19 by wlo               #+#    #+#             */
-/*   Updated: 2021/05/28 14:51:33 by wlo              ###   ########.fr       */
+/*   Updated: 2021/06/15 17:54:43 by wlo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
+
+/* Remove it when all is fixed up */
 #include <stdio.h>
 
 size_t     ft_strlen_total(char *a)
@@ -82,20 +84,23 @@ void    new_buffer(char *s)
 
 int get_next_line(int fd, char **line)
 {
+    //static int  debug = 1;
     static char buffer[BUFFER_SIZE + 1];
     char        *arr = 0;
-    int         ret;
+    int   ret;
 
+    //printf("\n%de appel de GNL: buffer -> |%s|\n\n", debug++, buffer);
     if (fd < 0 || line == 0)
         return (-1);
     if (buffer[0])
         arr = ft_substr(buffer, 0, ft_strlen_total(buffer) + 1);
+   // printf("There was a rest in buffer\narr -> |%s|\n", arr);
     while (ft_strchr(arr, '\n') == 0)
     {
         ret = read(fd, buffer, BUFFER_SIZE);
         if (ret < 0)
             return (-1);
-        buffer[ret] = '\0'; 
+        buffer[ret] = '\0';
         if (ret == 0)
             break;
         if (!arr)
@@ -104,39 +109,17 @@ int get_next_line(int fd, char **line)
             arr = ft_strjoin(arr, buffer);
     }
     *line = ft_substr(arr, 0, ft_strlen_total(arr));
-    if (!buffer[0])
-        ret = read(fd, buffer, BUFFER_SIZE);
-    //printf("buffer before: |%s|\n", buffer);
-    new_buffer(buffer);
-    //printf("buffer after : |%s|\n", buffer);
     free(arr);
+    //printf("*line -> |%s|\n", *line);
+    //printf("ret%d\n",ret);
+    printf("buffer before: |%s|\n", buffer);
     if (!line[0])
         *line = ft_substr("\0", 0, 1);
     if (!buffer[0] && ret == 0)
         return (0);
+    new_buffer(buffer);
+    if (!buffer[0])
+        ret = read(fd, buffer, BUFFER_SIZE);
+    printf("buffer after : |%s|\n", buffer); 
     return (1);
-}
-
-int main()
-{
-    int     fd;
-	char	*line;
-	int     i;
-
-	fd = open("try", O_RDONLY);
-
-    while ((i = get_next_line(fd, &line)) > 0)
-	{
-	    printf("\e[33mline READ:\e[0m\n|%s|\n", line);
-        free(line);
-	}
-	if (i == -1)
-        printf("\e[31mError encountered\e[0m\n");
-    else if (!i)
-        printf("\e[32mEOF reached\e[0m\n|%s|\n", line);
-    else
-        printf("Unexpected return of get_next_line\ni == %d\n", i);
-	close(fd);
-   // system("leaks a.out");
-    return (0);
 }
