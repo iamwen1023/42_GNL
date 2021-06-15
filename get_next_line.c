@@ -104,11 +104,15 @@ int get_next_line(int fd, char **line)
             arr = ft_strjoin(arr, buffer);
     }
     *line = ft_substr(arr, 0, ft_strlen_total(arr));
+    if (!buffer[0])
+        ret = read(fd, buffer, BUFFER_SIZE);
+    //printf("buffer before: |%s|\n", buffer);
     new_buffer(buffer);
+    //printf("buffer after : |%s|\n", buffer);
     free(arr);
     if (!line[0])
         *line = ft_substr("\0", 0, 1);
-    if (ret == 0)
+    if (!buffer[0] && ret == 0)
         return (0);
     return (1);
 }
