@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wlo <wlo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 14:51:19 by wlo               #+#    #+#             */
-/*   Updated: 2021/06/22 14:53:52 by wlo              ###   ########.fr       */
+/*   Created: 2021/06/22 15:14:06 by wlo               #+#    #+#             */
+/*   Updated: 2021/06/22 15:34:46 by wlo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -107,24 +107,24 @@ int	read_file(char **arr, int fd, char *buffer)
 
 int	get_next_line(int fd, char **line)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[OPEN_MAX][BUFFER_SIZE + 1];
 	char		*arr;
 	int			ret;
 
 	if (fd < 0 || line == NULL || BUFFER_SIZE <= 0)
 		return (-1);
 	arr = NULL;
-	if (buffer[0])
-		arr = ft_substr(buffer, 0, ft_strlen_total(buffer) + 1);
-	ret = read_file(&arr, fd, buffer);
+	if (buffer[fd][0])
+		arr = ft_substr(buffer[fd], 0, ft_strlen_total(buffer[fd]) + 1);
+	ret = read_file(&arr, fd, buffer[fd]);
 	if (ret == -1)
 		return (-1);
 	*line = ft_substr(arr, 0, ft_strlen_total(arr));
 	free(arr);
 	if (!line[0])
 		*line = ft_substr("\0", 0, 1);
-	if (!buffer[0] && ret == 0)
+	if (!buffer[fd][0] && ret == 0)
 		return (0);
-	new_buffer(buffer);
+	new_buffer(buffer[fd]);
 	return (1);
 }
