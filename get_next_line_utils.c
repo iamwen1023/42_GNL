@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wlo <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: wlo <wlo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:51:41 by wlo               #+#    #+#             */
-/*   Updated: 2021/05/28 14:51:44 by wlo              ###   ########.fr       */
+/*   Updated: 2021/06/22 14:15:28 by wlo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ char	*ft_strchr(char *s, int c)
 {
 	unsigned char	*ch_s;
 
-    if (!s)
-        return (0);
+	if (!s)
+		return (0);
 	ch_s = (unsigned char *)s;
 	while (*ch_s)
 	{
@@ -43,7 +43,7 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*ft_substr(char  *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char		*arr;
 	size_t		i;

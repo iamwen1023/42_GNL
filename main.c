@@ -6,7 +6,7 @@
 /*   By: wlo <wlo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:20:55 by wlo               #+#    #+#             */
-/*   Updated: 2021/06/15 16:50:18 by wlo              ###   ########.fr       */
+/*   Updated: 2021/06/22 12:08:01 by wlo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main(void)
 	}
 	if (i == -1)
 		printf("\e[31mError encountered\e[0m\n");
-	else if (!i)
+	else if (i == 0)
 		printf("\e[32mEOF reached\e[0m\n|%s|\n", line);
 	else
 		printf("Unexpected return of get_next_line\ni == %d\n", i);
