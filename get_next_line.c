@@ -6,17 +6,11 @@
 /*   By: wlo <wlo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:51:19 by wlo               #+#    #+#             */
-/*   Updated: 2021/06/22 14:53:52 by wlo              ###   ########.fr       */
+/*   Updated: 2021/06/24 15:50:58 by wlo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 size_t	ft_strlen_total(char *a)
 {
@@ -88,7 +82,7 @@ int	read_file(char **arr, int fd, char *buffer)
 {
 	int	ret;
 
-	ret = 0;
+	ret = 1;
 	while (ft_strchr(*arr, '\n') == 0)
 	{
 		ret = read(fd, buffer, BUFFER_SIZE);
@@ -121,7 +115,7 @@ int	get_next_line(int fd, char **line)
 		return (-1);
 	*line = ft_substr(arr, 0, ft_strlen_total(arr));
 	free(arr);
-	if (!line[0])
+	if (*line == 0)
 		*line = ft_substr("\0", 0, 1);
 	if (!buffer[0] && ret == 0)
 		return (0);

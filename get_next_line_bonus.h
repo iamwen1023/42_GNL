@@ -6,15 +6,16 @@
 /*   By: wlo <wlo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:51:59 by wlo               #+#    #+#             */
-/*   Updated: 2021/06/22 15:34:19 by wlo              ###   ########.fr       */
+/*   Updated: 2021/06/24 15:43:09 by wlo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -29,7 +30,7 @@ char	*ft_strchr(char *s, int c);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 size_t	ft_strlen_total(char *a);
 char	*ft_strjoin(char *s1, char *s2);
-void	new_buffer(char *s);
+char	*new_buffer(char *rest, char *buffer, int ret);
 int		read_file(char **arr, int fd, char *buffer);
 int		get_next_line(int fd, char **line);
 
