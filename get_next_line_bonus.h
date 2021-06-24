@@ -6,7 +6,7 @@
 /*   By: wlo <wlo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:51:59 by wlo               #+#    #+#             */
-/*   Updated: 2021/06/24 15:43:09 by wlo              ###   ########.fr       */
+/*   Updated: 2021/06/24 16:07:53 by wlo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <limits.h>
 
 # ifndef BUFFER_SIZE
