@@ -6,7 +6,7 @@
 /*   By: wlo <wlo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 15:14:06 by wlo               #+#    #+#             */
-/*   Updated: 2021/06/24 16:07:59 by wlo              ###   ########.fr       */
+/*   Updated: 2021/06/28 14:40:12 by wlo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ char	*ft_strjoin(char *s1, char *s2)
 
 char	*new_buffer(char *rest, char *buffer, int ret)
 {
-	size_t	i;
 	char	*next_rest;
 
-	i = 0;
 	next_rest = ft_strchr(rest, '\n');
 	if (!next_rest)
 	{
